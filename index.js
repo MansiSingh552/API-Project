@@ -1,4 +1,6 @@
+require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose")
 var bodyParser = require("body-parser");
 
 //Database
@@ -10,6 +12,15 @@ const booky = express();
 
 booky.use(bodyParser.urlencoded({extended: true}));
 booky.use(bodyParser.json());
+
+mongoose.connect(process.env.MONGO_URL,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+}).then(() => console.log("Connection Stablished"))
+
+
 
 /*****************GET**************/
 /*
@@ -240,7 +251,7 @@ booky.post("/publication/update/new",(req,res) => {
 
 
 /*
-Route            /publication
+Route            /publication/update/book
 Description      Update/add new publication
 Access           PUBLIC
 Parameter        isbn
@@ -272,6 +283,23 @@ booky.put("/publication/update/book/:isbn",(req,res) => {
     )
 });
 
+
+/*
+Route            /publication
+Description      add language to book
+Access           PUBLIC
+Parameter        isbn
+Methods          PUT
+*/
+
+booky.put("/books/update/category/:isbn",(req,res) => {
+  database.books.forEach((book) => {
+    if(book.ISBN === req.params.isbn){
+      book.category.push(req.body.category);
+      return res.json({books: database.books})
+    }
+  })
+})
 
 
 /****DELETE*****/
