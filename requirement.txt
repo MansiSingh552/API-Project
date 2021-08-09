@@ -31,3 +31,16 @@
 //To get all the publications 
 //To get a specific publication-ur task
 //To get a list of publications based on a book-ur task 
+
+//POST ReQuest
+//Add new book
+//add new publication
+//add new author
+
+//*****PUT******
+//update book details if author is changed
+
+//DELETE
+//Delete a book-done
+//Delete author from book-my task
+//Delete author from book and related book from author
